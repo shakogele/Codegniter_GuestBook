@@ -29,26 +29,35 @@ class Reviews_model extends CI_Model {
 
     public function set_reviews(){
         $this->load->helper('url');
+        $this->load->helper('date');
         $slug = url_title($this->input->post('title'), 'dash', TRUE);
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => $slug,
             'name' => $this->input->post('name'),
             'email' => $this->input->post('email'),
-            'text' => $this->input->post('text')
+            'text' => $this->input->post('text'),
+            'created_at' => date('Y-m-d H:i:s')
         );
         return $this->db->insert('reviews', $data);
     }
 
     public function update_review($url_slug){
         $this->load->helper('url');
+        $this->load->helper('date');
+
         $approved = ($this->input->post('approved')) ? $this->input->post('approved') : 0;
         $slug = url_title($this->input->post('title'), 'dash', TRUE);
+        // Better solution is MYSQL current_datetimestamp I know
+        $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';
+        $time = time();
+
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => $slug,
             'text' => $this->input->post('text'),
-            'approved' => $approved
+            'approved' => $approved,
+            'updated_at' => mdate($datestring, $time)
         );
         $this->db->where('slug', $url_slug);
         $query = $this->db->update('reviews', $data);

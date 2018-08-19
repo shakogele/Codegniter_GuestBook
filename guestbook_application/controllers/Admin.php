@@ -119,7 +119,6 @@ class Admin extends CI_Controller {
                 $this->reviews_model->update_review($slug);
                 $this->session->set_flashdata('msg', 'successfully Updated');
                 $this->session->set_flashdata('msg_cat', 'success');
-                redirect ('admin/reviews');
             }
 
         }
@@ -158,7 +157,7 @@ class Admin extends CI_Controller {
               $this->session->set_flashdata('msg', 'successfully dissapproved');
               $this->session->set_flashdata('msg_cat', 'success');
         }
-        redirect ('admin/reviews');
+        redirect ($this->input->post('page'));
 
     }
 

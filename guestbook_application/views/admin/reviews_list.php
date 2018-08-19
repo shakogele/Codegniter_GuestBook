@@ -75,6 +75,7 @@ class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                             <td class="center">
                               <?php echo form_open('admin/change_review'); ?>
                                 <input type="hidden" name="review_id" value="<?php echo $review['id'];?>" />
+                                <input type="hidden" name="page" value="<?= $this->uri->uri_string; ?>" />
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                   <?php if($review['approved'] == 0 ){ ?>
                                   <button

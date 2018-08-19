@@ -3,7 +3,7 @@
         <h1 class="page-header">
           Edit Review
           <br />
-          <a href="<?php echo site_url('admin/reviews');?>" class="btn btn-outline btn-default">Go Back</a>
+          <a href="<?php echo site_url('admin/reviews');?>" class="btn btn-outline btn-default">Go To Reviews List</a>
         </h1>
     </div>
     <!-- /.col-lg-12 -->

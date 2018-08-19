@@ -63,7 +63,7 @@ class Reviews extends CI_Controller {
         $data['title'] = 'Create a Review';
 
         $this->form_validation->set_error_delimiters('<div class="alert alert-warning alert-dismissible">', '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('title', 'Title', 'required|callback_slug_check');
         $this->form_validation->set_rules('text', 'Text', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('name', 'Name', 'required');
@@ -79,6 +79,18 @@ class Reviews extends CI_Controller {
             $this->session->set_flashdata('msg_cat', 'success');
             redirect ('reviews');
         }
+    }
+
+    public function slug_check($title){
+
+        $this->load->database();
+        $slug_for_validation = url_title($this->input->post('title'), 'dash', TRUE);
+        $query = $this->db->get_where('reviews', array('slug' => $slug_for_validation));
+        if(empty($query->row())){
+          return true;
+        }
+        $this->form_validation->set_message('slug_check', 'Please Change Title as in DB already exists record with same slug.');
+        return false;
     }
 
 }
