@@ -6,7 +6,9 @@ class Reviews_model extends CI_Model {
     }
 
     public function get_reviews($slug = FALSE, $offset=null, $per_page=null){
+
         if ($slug === FALSE){
+            $this->db->order_by('created_at DESC');
             $results = $this->db->get('reviews', $per_page, $offset)->result_array();
             $count = $this->db->get('reviews')->num_rows();
             return ['result' => $results, 'count' => $count];
@@ -16,12 +18,14 @@ class Reviews_model extends CI_Model {
     }
 
     public function get_approved_reviews($offset=null,$per_page=null){
+        $this->db->order_by('created_at DESC');
         $results = $this->db->get_where('reviews', array('approved' => 1), $per_page, $offset)->result_array();
         $count = $this->db->get_where('reviews', array('approved' => 1))->num_rows();
         return ['result' => $results, 'count' => $count];
     }
 
     public function get_dissapproved_reviews($offset=null,$per_page=null){
+        $this->db->order_by('created_at DESC');
         $results = $this->db->get_where('reviews', array('approved' => 0), $per_page, $offset)->result_array();
         $count = $this->db->get_where('reviews', array('approved' => 0))->num_rows();
         return ['result' => $results, 'count' => $count];
@@ -43,6 +47,7 @@ class Reviews_model extends CI_Model {
     }
 
     public function update_review($url_slug){
+
         $this->load->helper('url');
         $this->load->helper('date');
 
