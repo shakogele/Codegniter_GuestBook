@@ -34,7 +34,7 @@
         <li class="nav-item <?php if ($title === 'Login') {
           echo 'active';
         }?>">
-          <?php if(!$this->session->userdata['validated']) {?>
+          <?php if(!array_key_exists('username', $this->session->userdata)) {?>
               <a class="nav-link" href="<?php echo site_url('login');?>">Log In</a>
           <?php } else {?>
               <a class="nav-link" href="<?php echo site_url('admin/dashboard');?>"><?php echo $this->session->userdata['username'];?></a>
